@@ -1,23 +1,11 @@
-// import React from 'react'
-// import Nav from '../components/Nav'
-
-// export default function Products(){
-//     return (
-//         <React.Fragment>
-//             <Nav/>
-//             <h1>Products</h1>
-//         </React.Fragment>
-//     )
-
-// }
-
-import React, { useState, useEffect } from 'react';
-import axios from 'axios';
+import React, { useState, useEffect } from 'react'
+import axios from 'axios'
+import Nav from '../components/Nav'
 
 // import {
 //     Switch,
 //     Route,
-//     // useHistory,
+//     useHistory,
 // } from "react-router-dom";
 
 import Card from 'react-bootstrap/Card';
@@ -25,7 +13,7 @@ import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import Form from 'react-bootstrap/Form';
 
-export default function CategoriesMenu() {
+export default function Products() {
 
     const [apiProducts, setApiProducts] = useState([]);
     const [show, setShow] = useState(false);
@@ -56,18 +44,18 @@ export default function CategoriesMenu() {
         }
     }
 
-    useEffect(()=>{
+    useEffect(() => {
         addToCart()
-    },[cart])
+    }, [cart])
 
-   const addToCart = () => {
+    const addToCart = () => {
         setError(false);
-        if(quantity !== 0){
+        if (quantity !== 0) {
             let sendToCart = {
-              productdId: product.id,
-              productName: product.name,
-              quantity: quantity,
-              price: product.price,
+                productdId: product.id,
+                productName: product.name,
+                quantity: quantity,
+                price: product.price,
             }
             setCart([
                 ...cart,
@@ -75,22 +63,21 @@ export default function CategoriesMenu() {
             ])
             handleClose()
         }
-        if(quantity === 0){
+        if (quantity === 0) {
             setError(true)
         }
         localStorage.setItem('cartAll', JSON.stringify(cart))
         // console.log("EVERYTHING IN CART NOW: ", cart)
     }
 
-//    function addToCart(){
-//         setUpCart()
-//         localStorage.setItem('cartAll', JSON.stringify(cart))
-//         let fetchLocal = JSON.parse(localStorage.getItem('cartAll'))
-//         console.log("Fetch Local: ", fetchLocal)
-//         // console.log("EVERYTHING IN CART NOW: ", cart)
-//     }
+    //    function addToCart(){
+    //         setUpCart()
+    //         localStorage.setItem('cartAll', JSON.stringify(cart))
+    //         let fetchLocal = JSON.parse(localStorage.getItem('cartAll'))
+    //         console.log("Fetch Local: ", fetchLocal)
+    //         // console.log("EVERYTHING IN CART NOW: ", cart)
+    //     }
 
-    // const history = useHistory();
 
     useEffect(() => {
         fetchApi();
@@ -101,35 +88,40 @@ export default function CategoriesMenu() {
         setApiProducts(response.data);
     }
 
-    function renderProduct(categoryName) {
+    function renderProduct() {
         let jsx = []
         for (let product of apiProducts) {
-                jsx.push(
-                    <React.Fragment>
-                        <Card border="secondary" style={{ width: "25%" }}>
-                            <Card.Body>
-                                <Card.Img variant="top" src={product.imgurl} />
-                                <Card.Text>
-                                    <p style={{ fontWeight: "bold" }}>{product.product_name}</p>
-                                    <p>SKU: {product.sku}</p>
-                                    <p>{product.description}</p>
-                                    <p>Price: ${(product.price / 100).toFixed(2)}</p>
-                                </Card.Text>
-                                <div style={{ textAlign: "center" }}>
-                                    <Button variant="outline-success" onClick={() => handleShow(product.id)}>Add To Cart</Button>
-                                </div>
-                            </Card.Body>
-                        </Card>
-                    </React.Fragment>
-                )
+            jsx.push(
+                <React.Fragment>
+                    <Card border="secondary" style={{ width: "25%" }}>
+                        <Card.Body>
+                            <Card.Img variant="top" src={product.imgurl} />
+                            <Card.Text>
+                                <p style={{ fontWeight: "bold" }}>{product.product_name}</p>
+                                <p>SKU: {product.sku}</p>
+                                <p>{product.description}</p>
+                                <p>Price: ${(product.price / 100).toFixed(2)}</p>
+                            </Card.Text>
+                            <div style={{ textAlign: "center" }}>
+                                <Button variant="outline-success" onClick={() => handleShow(product.id)}>Add To Cart</Button>
+                            </div>
+                        </Card.Body>
+                    </Card>
+                </React.Fragment>
+            )
         }
         return jsx;
     }
 
     return (
         <React.Fragment>
-            {renderProduct()}
-            
+            <Nav />
+            <h1>Products</h1>
+            <div className="d-flex flex-wrap">
+                {renderProduct()}
+            </div>
+
+
         </React.Fragment>
     )
 }

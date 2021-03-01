@@ -106,12 +106,11 @@ export default function CategoriesMenu() {
         for (let product of apiProducts) {
                 jsx.push(
                     <React.Fragment>
-                        <Card border="secondary" style={{ width: "25%" }}>
+                        <Card style={{ width: "25%" }}>
                             <Card.Body>
                                 <Card.Img variant="top" src={product.imgurl} />
                                 <Card.Text>
                                     <p style={{ fontWeight: "bold" }}>{product.product_name}</p>
-                                    <p>SKU: {product.sku}</p>
                                     <p>{product.description}</p>
                                     <p>Price: ${(product.price / 100).toFixed(2)}</p>
                                 </Card.Text>
@@ -128,8 +127,61 @@ export default function CategoriesMenu() {
 
     return (
         <React.Fragment>
-            {renderProduct()}
-            
+            <Modal show={show} onHide={handleClose}>
+                <Modal.Header closeButton>
+                    <Modal.Title>{product.product_name}</Modal.Title>
+                </Modal.Header>
+                <Modal.Body>
+                    <Form className="d-flex justify-content-center">
+                        <Form.Group className="d-flex">
+                            <Button onClick={()=>{
+                                if(quantity !== 0){
+                                    setQuantity(quantity-1)
+                                }
+                            }}> - </Button>
+                            <Form.Control value={quantity} style={{ width:'75px', textAlign: 'center' }}></Form.Control>
+                            <Button onClick={()=>{
+                                setQuantity(quantity+1)
+                            }}> + </Button>
+                        </Form.Group>
+                    </Form>
+                    {hasError ? (<div style={{color:'red', textAlign:'center'}}>Please select quantity.</div>) : '' }
+                </Modal.Body>
+                <Modal.Footer>
+                    <Button variant="secondary" onClick={handleClose}>
+                        Close
+                    </Button>
+                    <Button variant="primary" onClick={()=> addToCart()}>
+                        Add
+                    </Button>
+                </Modal.Footer>
+            </Modal>
+            {/* <Switch>
+                <Route exact path="/menu">
+                    {renderProduct("Breakfast")}
+                </Route>
+                <Route exact path="/menu/desserts">
+                    {renderProduct("Desserts")}
+                </Route>
+                <Route exact path="/menu/beefburgers">
+                    {renderProduct("Beef Burgers")}
+                </Route>
+                <Route exact path="/menu/chickenburgers">
+                    {renderProduct("Chicken Burgers")}
+                </Route>
+                <Route exact path="/menu/fishburgers">
+                    {renderProduct("Fish Burgers")}
+                </Route>
+                <Route exact path="/menu/coldbeverages">
+                    {renderProduct("Cold Beverages")}
+                </Route>
+                <Route exact path="/menu/warmbeverages">
+                    {renderProduct("Warm Beverages")}
+                </Route>
+                <Route exact path="/menu/sides">
+                    {renderProduct("Sides")}
+                </Route>
+            </Switch> */}
         </React.Fragment>
     )
 }

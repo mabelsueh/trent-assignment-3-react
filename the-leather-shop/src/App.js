@@ -6,7 +6,6 @@ import {
 import 'bootstrap/dist/css/bootstrap.min.css'
 
 // pages
-import Home from './pages/Home'
 import Products from './pages/Products'
 import Register from './pages/Register'
 import Address from './pages/Address'

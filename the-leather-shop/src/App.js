@@ -16,7 +16,7 @@ function App() {
     <React.Fragment>
         <Router>
           <Switch>
-              <Route exact path="/">
+              <Route path="/products">
                 <Products/>
               </Route>
               <Route exact path="/register">

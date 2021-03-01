@@ -1,12 +1,13 @@
 import React, { useState, useEffect } from 'react'
 import axios from 'axios'
 import Nav from '../components/Nav'
+import Categories from './Categories'
 
-// import {
-//     Switch,
-//     Route,
-//     useHistory,
-// } from "react-router-dom";
+import {
+    Switch,
+    Route,
+    useHistory,
+} from "react-router-dom";
 
 import Card from 'react-bootstrap/Card';
 import Button from 'react-bootstrap/Button';
@@ -43,6 +44,8 @@ export default function Products() {
             }
         }
     }
+
+    const history = useHistory()
 
     useEffect(() => {
         addToCart()
@@ -88,27 +91,29 @@ export default function Products() {
         setApiProducts(response.data);
     }
 
-    function renderProduct() {
+    function renderProduct(categoryName) {
         let jsx = []
         for (let product of apiProducts) {
-            jsx.push(
-                <React.Fragment>
-                    <Card border="secondary" style={{ width: "25%" }}>
-                        <Card.Body>
-                            <Card.Img variant="top" src={product.imgurl} />
-                            <Card.Text>
-                                <p style={{ fontWeight: "bold" }}>{product.product_name}</p>
-                                <p>SKU: {product.sku}</p>
-                                <p>{product.description}</p>
-                                <p>Price: ${(product.price / 100).toFixed(2)}</p>
-                            </Card.Text>
-                            <div style={{ textAlign: "center" }}>
-                                <Button variant="outline-success" onClick={() => handleShow(product.id)}>Add To Cart</Button>
-                            </div>
-                        </Card.Body>
-                    </Card>
-                </React.Fragment>
-            )
+            if (product.category === categoryName) {
+                jsx.push(
+                    <React.Fragment>
+                        <Card border="secondary" style={{ width: "25%" }}>
+                            <Card.Body>
+                                <Card.Img variant="top" src={product.imgurl} />
+                                <Card.Text>
+                                    <p style={{ fontWeight: "bold" }}>{product.product_name}</p>
+                                    <p>SKU: {product.sku}</p>
+                                    <p>{product.description}</p>
+                                    <p>Price: ${(product.price / 100).toFixed(2)}</p>
+                                </Card.Text>
+                                <div style={{ textAlign: "center" }}>
+                                    <Button variant="outline-success" onClick={() => handleShow(product.id)}>Add To Cart</Button>
+                                </div>
+                            </Card.Body>
+                        </Card>
+                    </React.Fragment>
+                )
+            }
         }
         return jsx;
     }
@@ -116,10 +121,26 @@ export default function Products() {
     return (
         <React.Fragment>
             <Nav />
+            <Categories />
             <h1>Products</h1>
             <div className="d-flex flex-wrap">
                 {renderProduct()}
             </div>
+
+            <Switch>
+                <Route exact path="/products/tools">
+                    {renderProduct("tools")}
+                </Route>
+                <Route exact path="/products/accessories">
+                    {renderProduct("accessories")}
+                </Route>
+                <Route exact path="/products/supplies">
+                    {renderProduct("supplies")}
+                </Route>
+                <Route exact path="/products/stitching">
+                    {renderProduct("stitching")}
+                </Route>
+            </Switch>
 
 
         </React.Fragment>

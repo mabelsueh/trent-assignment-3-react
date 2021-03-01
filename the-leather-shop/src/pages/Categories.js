@@ -22,18 +22,23 @@ export default function MenuBar(){
 
     async function fetchApi(){
         let response = await axios.get('https://8080-a3d5bfe8-e545-435f-aa79-ead619c8cac6.ws-us03.gitpod.io/api/products');
-        setCategories(response.data)
+       
+        // cats only belongs to this function and is not global
+        // to access array, need to set state to make it global
+        let cats = []
+        for (let r of response.data) {
+            if (!cats.includes(r.category)) {
+                cats.push(r.category)
+            }
+        }
+         setCategories(cats)
     }
 
     function changeRoute(categoryTitle){
-        let newCategoryTitle = ""
-        if(categoryTitle.includes(' ')){
-            let index = categoryTitle.indexOf(' ')
-            let firstString = categoryTitle.slice(0, index)
-            let secondString = categoryTitle.slice(index+1)
-            newCategoryTitle = (firstString.concat(secondString)).toLowerCase()
+        if(categoryTitle.includes(' ') === false){
+        
+        history.push(`/products/${categoryTitle}`)
         }
-        history.push(`/products/${newCategoryTitle}`)
     }
 
     function renderCategories(){
@@ -41,7 +46,7 @@ export default function MenuBar(){
         for(let category of categories){
             jsx.push(
                 <React.Fragment>
-                    <Button variant="outline-dark" style={{fontSize:"25px", width:"100%"}} onClick={() => changeRoute(category.category)}>{category.category}</Button>
+                    <Button variant="outline-dark" style={{fontSize:"25px", width:"100%"}} onClick={() => changeRoute(category)}>{category}</Button>
                 </React.Fragment>
             )
         }

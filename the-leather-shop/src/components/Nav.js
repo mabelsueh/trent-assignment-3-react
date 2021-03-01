@@ -3,6 +3,7 @@ import Navbar from 'react-bootstrap/Navbar'
 import Nav from 'react-bootstrap/Nav'
 
 
+
 export default function Home() {
     return (
         <React.Fragment>
@@ -20,11 +21,12 @@ export default function Home() {
                 <Navbar.Collapse id="basic-navbar-nav">
                     <Nav className="mr-auto">
                         <Nav.Link href="">Link</Nav.Link>
-                        
+    
                     </Nav>
                     
                 </Navbar.Collapse>
             </Navbar>
+            
         </React.Fragment>
     )
 }

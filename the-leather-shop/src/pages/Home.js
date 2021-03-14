@@ -66,6 +66,7 @@ export default function Home() {
                 <Navbar.Collapse id="basic-navbar-nav">
                     <Nav className="mr-auto">
                         <Nav.Link href="products">Products</Nav.Link>
+                        <Nav.Link href="allproducts">All Products</Nav.Link>
 
                     </Nav>
                     <Form inline method="POST">

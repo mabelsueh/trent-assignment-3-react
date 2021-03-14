@@ -7,8 +7,6 @@ import {
     Switch,
     Route,
     useHistory,
-    useRouteMatch,
-    useParams
 } from "react-router-dom";
 
 import Container from 'react-bootstrap/Container'
@@ -18,14 +16,6 @@ import Button from 'react-bootstrap/Button';
 // import Form from 'react-bootstrap/Form';
 
 export default function Products() {
-
-    let { path, url } = useRouteMatch();
-    let { catId } = useParams(); 
-    console.log(catId)
-    console.log({catId})
-    
-
-    
 
     const [apiProducts, setApiProducts] = useState([]);
     const [apiAllProducts, setAllApiProducts] = useState([]);
@@ -168,6 +158,7 @@ export default function Products() {
             <Nav />
             <Categories />
             <Container>
+                <h1>All Products</h1>
                 {/* <div className="d-flex flex-wrap">
                     {renderProduct()}
                 </div> */}
@@ -175,7 +166,7 @@ export default function Products() {
 
             </Container>
 
-            {/* <Switch>
+            <Switch>
                 <Route exact path="/products">
                     <React.Fragment>
                         <Container>
@@ -221,27 +212,6 @@ export default function Products() {
                         </Container>
                     </React.Fragment>
                 </Route>
-            </Switch> */}
-            <Switch>
-                <Route exact path={path}>
-                    <React.Fragment>
-                        <Container>
-                            <div className="d-flex flex-wrap">
-                                {renderAllProducts()}
-                            </div>
-                        </Container>
-                    </React.Fragment>
-                </Route>
-                <Route>
-                    <Route path={`${path}/:catId`}>
-                        <Container>
-                            <div className="d-flex flex-wrap">
-                                {renderProduct({ catId })}
-                            </div>
-                        </Container>
-                    </Route>
-                </Route>
-
             </Switch>
 
 

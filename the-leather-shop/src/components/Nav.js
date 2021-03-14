@@ -11,8 +11,8 @@ export default function Home() {
                 <Navbar.Brand href="/">
                     <img
                         src="./images/logo.png"
-                        width="150"
-                        height="150"
+                        width="100"
+                        height="100"
                         className="d-inline-block align-top"
                         alt="Logo"
                     />
@@ -20,13 +20,14 @@ export default function Home() {
                 <Navbar.Toggle aria-controls="basic-navbar-nav" />
                 <Navbar.Collapse id="basic-navbar-nav">
                     <Nav className="mr-auto">
-                        <Nav.Link href="">Link</Nav.Link>
-    
+                        <Nav.Link href="products/products">Products</Nav.Link>
+                        <Nav.Link href="allproducts">All Products</Nav.Link>
+
                     </Nav>
-                    
+
                 </Navbar.Collapse>
             </Navbar>
-            
+
         </React.Fragment>
     )
 }
